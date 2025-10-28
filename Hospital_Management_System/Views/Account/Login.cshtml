@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "Log In";
+}
+@*<style>
+        body {
+            background-image: url('/Content/Images/earth space.jpeg');
+            background-size:cover
+        }
+    </style>*@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" id="main-font-link">
+<!-- [Tabler Icons] https://tablericons.com -->
+
+<link href="~/Content/Images/_authentication.css" rel="stylesheet" />
+<h1 class="user-name" style="text-align:center;">Login</h1>
+<div class="auth-main">
+    <div class="auth-wrapper v1">
+        <div class="card my-1" style="width:700px;margin:auto">
+            <div class="card-body">
+                <div style="text-align: center;">
+                    @if (ViewBag.Error != null)
+                    {
+                        <span style="color:red;font-weight:700">@ViewBag.Error</span>
+                    }
+                </div>
+                @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+            <div class="row g-3">
+                <div class="form-group col-md-6">
+                    <label class="form-label">User Name</label>
+                    <input type="text" name="username" class="form-control" placeholder="Enter User Name" required />
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="form-label">Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter Your Password" required />
+                        <i class="fa-solid fa-eye toggle-eye" id="togglePassword" title="Show Password"></i>
+                    </div>
+                </div>
+                <div class="d-grid mt-4 col-md-5" style="margin:auto">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </div>
+                }
+                <div class="saprator2 mt-3 text-center">
+                    <span class="user-name2"><strong>OR</strong></span>
+                </div>
+                <div class="saprator mt-2">
+                    <span class="user-name2" style="font-size:18px"><strong>Login with</strong></span>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="d-grid">
+                            <button type="button" class="btn mt-2 btn-light-primary bg-light text-muted">
+                                <img src="~/Content/Images/authentication/google.svg" alt="img"> <span class="d-none d-sm-inline-block"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="d-grid">
+                            <button type="button" class="btn mt-2 btn-light-primary bg-light text-muted">
+                                <img src="~/Content/Images/authentication/twitter.svg" alt="img"> <span class="d-none d-sm-inline-block"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="d-grid">
+                            <button type="button" class="btn mt-2 btn-light-primary bg-light text-muted">
+                                <img src="~/Content/Images/authentication/facebook.svg" alt="img"> <span class="d-none d-sm-inline-block"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <a href="@Url.Action("SignUp", "Account")">Don't have an account? Sign up here</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/MY_JS.js"></script>

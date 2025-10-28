@@ -1,0 +1,87 @@
+﻿@model HospitalManagement.Models.User
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div>
+    <h2 class="user-name" style="text-align:center">User</h2>
+    <hr />
+    <h4 style="color:red">Are you sure you want to delete this?</h4>
+    <dl class="dl-horizontal mt-3">
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PasswordHash)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PasswordHash)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProfileImagePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProfileImagePath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="mt-lg-3">
+            <input type="submit" value="Delete" class="btn btn-outline-danger user-name" />
+            @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-outline-info user-name", style = "margin-left:10px" })
+        </div>
+    }
+</div>

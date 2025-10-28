@@ -1,0 +1,116 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* Theme Switcher */
+    .theme-switcher {
+        position: relative;
+    }
+
+    .theme-checkbox {
+        opacity: 0;
+        position: absolute;
+    }
+
+        .theme-checkbox:checked + .theme-label .theme-ball {
+            transform: translateX(24px);
+        }
+
+        .theme-checkbox:checked + .theme-label .theme-ball {
+            transform: translateX(24px);
+        }
+
+    .theme-label .fa-sun {
+        color: #f1c40f;
+    }
+
+    .theme-label .fa-moon {
+        color: #f39c12;
+    }
+
+    .theme-ball {
+        background-color: white;
+        border-radius: 50%;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        height: 22px;
+        width: 22px;
+        transform: translateX(0px);
+        transition: transform 0.2s linear;
+    }
+
+    .glass-card {
+        background: rgba(255, 255, 255, 0.15); /* Transparent white layer */
+        backdrop-filter: blur(12px) saturate(180%);
+        -webkit-backdrop-filter: blur(12px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        border-radius: 16px;
+        color: #fff;
+        width: 800px;
+        height: 460px;
+        margin: auto; /*This is for center the content */
+    }
+    /* Hide Bootstrap's default dropdown caret */
+    .dropdown-toggle::after {
+        display: none !important;
+    }
+</style>
+<div class="glass-card text-center p-4 rounded-4 shadow-lg">
+    <h2 class="user-name" style="text-align:center">Setting</h2>
+    <img id="profileImageDropdown"
+         src="@(Session["ProfileImage"] ?? Url.Content("/Content/Images/default-avatar.png"))"
+         class="rounded-circle mb-2 user-avatar"
+         alt="Avatar"
+         style="cursor: default;width:140px;height:140px"title="@Session["FullName"]" />
+
+    @*<small class="d-block mb-2">Click on profile picture to change your photo.</small>*@
+    <input type="file" id="imageUpload" accept="image/*" style="display:none;" />
+
+    <div class="fw-semibold fs-5 user-name">@Session["FullName"]</div>
+    <small class="user-email">@Session["Email"]</small>
+
+    <div class="row g-3 mt-5">
+        <div class="col-md-3 dropdown">
+            <h5 class="user-name">Theme</h5>
+            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false">
+                Choose Theme
+            </button>
+            <ul class="dropdown-menu user-name3">
+                <li><a class="dropdown-item"style="background-color:black;color:white" href="#"><i class="fa fa-moon"></i> Dark</a></li>
+                <li><a class="dropdown-item" style="background-color:white;color:black" href="#"><i class="fa fa-sun"></i> Light</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    // ===== THEME HANDLING =====
+    const themeItems = document.querySelectorAll('.dropdown-item i.fa-moon, .dropdown-item i.fa-sun');
+    const body = document.body;
+
+    // Load saved theme
+    //const savedTheme = localStorage.getItem('theme') || 'light';
+    //body.setAttribute('data-theme', savedTheme);
+
+    // Apply theme on click
+    document.querySelectorAll('.dropdown-menu .dropdown-item').forEach(item => {
+        item.addEventListener('click', function () {
+            const text = this.textContent.trim().toLowerCase();
+            if (text.includes('dark')) {
+                body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            } else if (text.includes('light')) {
+                body.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                // For language
+                selectedLanguage = text;
+            }
+        });
+    });
+
+  
+   
+</script>

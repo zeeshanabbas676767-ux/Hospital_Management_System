@@ -1,0 +1,111 @@
+﻿
+@{
+    // The ViewData dictionary can be used to pass information from the Controller to the View.
+    ViewBag.Title = "Hospital Dashboard";
+}
+
+<style>
+    .card-icon {
+        font-size: 3rem; /* Increase the size of the icon */
+    }
+
+    .info-card {
+        transition: transform 0.3s ease-in-out;
+    }
+
+        .info-card:hover {
+            transform: translateY(-5px); /* Lift the card on hover */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+</style>
+
+<div class="jumbotron text-white text-center">
+    <h4 class="p-3 user-name">👋 Welcome @Session["FullName"] !</h4>
+    <h1 class="user-name">Hospital Management System</h1>
+    <p class="lead text-dark user-name">Efficiently manage patient records, appointments, and staff.</p>
+</div>
+
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="card info-card text-center mb-4">
+            <div class="card-body">
+                <i class="fas fa-user-injured card-icon text-info"></i>
+                <h5 class="card-title mt-3">Patient Records</h5>
+                <p class="card-text user-name2">Manage admissions, discharge, and medical history.</p>
+                @* This assumes you have a 'Patient' controller and an 'Index' action for the list *@
+                @Html.ActionLink("View Patients", "Index", "Patients", null, new { @class = "btn btn-info btn-block" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card info-card text-center mb-4">
+            <div class="card-body">
+                <i class="far fa-calendar-alt card-icon text-success"></i>
+                <h5 class="card-title mt-3">Appointments</h5>
+                <p class="card-text user-name2">Schedule and track appointments for doctors and patients.</p>
+                @* This assumes you have an 'Appointment' controller *@
+                @Html.ActionLink("Manage Appointments", "Index", "Appointments", null, new { @class = "btn btn-success btn-block" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card info-card text-center mb-4">
+            <div class="card-body">
+                <i class="fas fa-user-md card-icon text-warning"></i>
+                <h5 class="card-title mt-3">Staff Management</h5>
+                <p class="card-text user-name2">Keep track of doctors, nurses, and other personnel.</p>
+                @* This assumes you have a 'Staff' controller *@
+                @Html.ActionLink("View Staff", "Index", "Doctors", null, new { @class = "btn btn-warning btn-block" })
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<hr />
+
+@* If you pass a model of type IEnumerable<YourProjectName.Models.Patient>
+    from your HomeController Index action, you can display data here.
+*@
+@model IEnumerable<HospitalManagement.Models.People.Patient>
+
+@if (Model != null && Model.Any())
+{
+    <h2>Latest Registrations</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Patient ID</th>
+                <th>Name</th>
+                <th>Registration Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var patient in Model.Take(5))
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => patient.PatientId)</td>
+                    <td>@Html.DisplayFor(modelItem => patient.FirstName) @Html.DisplayFor(modelItem => patient.LastName)</td>
+                    <td>@Html.DisplayFor(modelItem => patient.Appointments)</td>
+                    <td>@Html.ActionLink("Details", "Details", "Patient", new { id = patient.PatientId }, null)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info" role="alert">
+        No recent patient registrations to display.
+    </div>
+}
+
+@section scripts {
+    <script>
+        // Example: console.log('Index page loaded.');
+    </script>
+}

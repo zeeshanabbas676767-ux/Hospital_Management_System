@@ -1,0 +1,73 @@
+﻿@model IEnumerable<HospitalManagement.Models.Appointments.Appointment>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="user-name" style="text-align:center">Appointment</h2>
+<hr />
+<p class="mt-5">
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary", style = "color:white;font-weight:600" })
+</p>
+
+<div class="container-fluid" style="overflow:auto;max-height:300px">
+    <table class="table">
+        <tr>
+            <th class="user-name">
+                PatientName
+            </th>
+            <th class="user-name">
+                DoctorName
+            </th>
+            <th class="user-name">
+                StartTime
+            </th>
+            <th class="user-name">
+                EndTime
+            </th>
+            <th class="user-name">
+                Status
+            </th>
+            <th class="user-name">
+                Notes
+            </th>
+            <th class="user-name">Action</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="user-name">
+                    @Html.DisplayFor(modelItem => item.Doctor.FirstName)
+                </td>
+                <td class="user-name">
+                    @Html.DisplayFor(modelItem => item.Patient.FirstName)
+                </td>
+                <td class="user-name">
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td class="user-name">
+                    @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+                <td class="user-name">
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td class="user-name">
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+                <td class="text-center gap-2" style="display:flex;">
+                    <a href="@Url.Action("Edit", new { id = item.AppointmentId })" class="btn btn-success" title="Edit">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <a href="@Url.Action("Details", new { id = item.AppointmentId })" class="btn btn-secondary" title="Details">
+                        <i class="fa fa-file-alt"></i>
+                    </a>
+                    <a href="@Url.Action("Delete", new { id = item.AppointmentId })" class="btn btn-danger" title="Delete">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+

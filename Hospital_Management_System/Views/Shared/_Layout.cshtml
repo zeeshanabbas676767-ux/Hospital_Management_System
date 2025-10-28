@@ -1,0 +1,516 @@
+﻿@{
+    var username = Session["UserName"] != null ? Session["UserName"].ToString() : null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title Hospital Management System</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/Template/css/bootstrap.css">
+
+    <link rel="stylesheet" href="~/Content/Template/vendors/iconly/bold.css">
+
+    <link rel="stylesheet" href="~/Content/Template/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="~/Content/Template/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/Content/Template/css/app.css">
+    <link rel="shortcut icon" href="~/Content/Template/images/favicon.svg" type="image/x-icon">
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" id="main-font-link">
+
+    <link href="~/Content/Images/_authentication.css" rel="stylesheet" />
+    <style>
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px;
+            color: #831081; /* soft indigo */
+            font-weight: 600;
+        }
+
+        /*    tr:hover td {
+            background: rgba(255,255,255,0.05);
+            transition: background-color 0.3s ease;
+        }*/
+        .table-dark tr:hover td {
+            background-color: black;
+            transition: background-color 0.3s ease;
+        }
+
+        .table-dark td {
+            padding: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.5);
+            color: #e5e7eb;
+        }
+        /* Navbar */
+        .navbar {
+            box-shadow: 0 0 10px #111;
+            background: linear-gradient(#000000);
+        }
+
+        .download-button {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 25px;
+            overflow: hidden;
+            cursor: pointer;
+            /* base look */
+            background-color: dodgerblue; /* #4CAF50 */
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.4s ease-in-out;
+        }
+
+            /* text container (always above everything) */
+            .download-button span {
+                position: relative;
+                z-index: 2; /* make text the topmost layer */
+                transition: color 0.4s ease-in-out;
+            }
+
+            /* black overlay behind text */
+            .download-button::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background-color: black;
+                z-index: 1; /* below text, above green background */
+                transform: scaleX(0);
+                transform-origin: right;
+                transition: transform 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+                border-radius: 25px;
+            }
+
+            /* green base behind everything */
+            .download-button::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background-color: dodgerblue;
+                z-index: 0; /* very back */
+                border-radius: 25px;
+            }
+
+            /* on hover */
+            .download-button:hover::before {
+                transform: scaleX(1);
+                transform-origin: left;
+            }
+
+            /* text turns white on hover */
+            .download-button:hover span {
+                color: white;
+            }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .form-control {
+            width: 100%;
+            padding-right: 40px; /* space for the eye icon */
+        }
+
+        .toggle-eye {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #555;
+        }
+
+        [dir="rtl"] .toggle-eye {
+            right: auto;
+            left: 10px; /* move eye to the left for RTL */
+        }
+
+        .error {
+            border-color: red !important;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        .no-marker {
+            list-style-type: none; /* hides bullets/numbers */
+            padding-left: 0; /* removes extra indent */
+            margin-left: 0; /* optional */
+        }
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border: 2px solid #111;
+            transition: transform 0.3s ease;
+        }
+ /*----------------------------------------------------*/
+
+        /* === Theme Styles === */
+        body[data-theme="light"] {
+            background-color: #f8f9fa;
+            color: #000;
+        }
+
+        body[data-theme="dark"] {
+            background-color: #121212;
+            color: #fff;
+        }
+
+            /* Sidebar dark theme */
+            body[data-theme="dark"] .sidebar-wrapper {
+                background-color: #1e1e1e !important;
+            }
+
+            body[data-theme="dark"] .sidebar-link,
+            body[data-theme="dark"] .submenu-item a {
+                color: #ddd !important;
+            }
+
+                body[data-theme="dark"] .sidebar-link:hover,
+                body[data-theme="dark"] .submenu-item a:hover {
+                    background-color: #333 !important;
+                }
+
+            /* Glass card dark style */
+            body[data-theme="dark"] .glass-card {
+                background: rgba(40, 40, 40, 0.8);
+                color: white;
+            }
+        /* Default (light theme) */
+        .user-name,
+        .user-email {
+            color: #000;
+        }
+
+        /* When dark theme is active */
+        body[data-theme="dark"] .user-name,
+        body[data-theme="dark"] .user-email {
+            color: #fff !important;
+        }
+        /* When dark theme is active */
+        body[data-theme="dark"] .user-name2 {
+            color: #000 !important;
+        }
+        /* When dark theme is active */
+        body[data-theme="dark"] .user-name3 {
+            background-color: #000 !important;
+        }
+    </style>
+</head>
+
+<body dir="ltr">
+    <div id="app">
+        @*<nav class="mt-2 gap-2" style="width:250px;display:flex;margin-left:320px;position:fixed">
+                <button class="btn btn-dark"><i class="fa fa-sign-in-alt"></i> Log In</button>
+                <button class="btn btn-dark"><i class="fa fa-user-plus"></i> Sign In</button>
+
+            </nav>*@
+        <div class="sidebar-menu" style="display:flex;margin-left:320px">
+            @if (Session["UserID"] != null)
+            {
+                <li class="sidebar-item dropdown user-menu no-marker">
+                        <a class="nav-link p-0" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" style="width:50px;border-radius:20px;display:flex">
+                            <img src="@Url.Content(Session["ProfileImage"] != null ? Session["ProfileImage"].ToString() : "~/Content/Images/default-avatar.png")"
+                                 alt="User" title="@Session["FullName"]"
+                                 class="rounded-circle user-avatar" style="width: 60px; height: 60px" />
+                        </a>
+                        <strong class="user-name">Hi, @Session["FullName"]</strong>
+               
+                    <ul class="dropdown-menu dropdown-menu-end user-dropdown shadow">
+                        <li class="text-center">
+                            <img id="profileImageDropdown" src="@(Session["ProfileImage"] ?? Url.Content("~/Content/Images/default-avatar.png"))"
+                                 class="rounded-circle user-avatar mb-2" alt="Avatar" style="cursor: pointer;width:100px;height:100px" title="Upload picture from PC" />
+                            <!-- Hidden File Input -->
+                            <input type="file" id="imageUpload" accept="image/*" style="display:none;" />
+                            <div class="fw-semibold">@Session["FullName"]</div>
+                            <small class="text-muted">@Session["Email"]</small>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        @{
+                            var currentUserId = Session["UserID"];
+                            if (currentUserId != null)
+                            {
+                                <li><a class="dropdown-item text-primary fw-semibold" href="@Url.Action("Setting","Account", new { id = currentUserId })"><i class="fa fa-cog me-1"></i> Settings</a></li>
+                            }
+                        }
+
+                        <li><a class="dropdown-item text-danger fw-semibold" href="@Url.Action("Logout", "Account")"><i class="fa fa-sign-out-alt me-1"></i> Log out</a></li>
+                    </ul>
+                </li>
+            }
+            else
+            {
+                <div class="gap-2 mt-1">
+                    <button class="download-button" onclick="location.href='@Url.Action("Login", "Account")'">
+                        <span>Log In <i class="icon-download"></i></span>
+                    </button>
+                    <button class="download-button" onclick="location.href='@Url.Action("SignUp", "Account")'">
+                        <span>Sign Up <i class="icon-download"></i></span>
+                    </button>
+                </div>
+                @*<li class="download-button"><a class="nav-link btn-login" href="@Url.Action("Login", "Account")">  <span>Log In<i class="icon-download"></i></span></a></li>*@
+                @*<li class="nav-item"><a class="nav-link btn-signup" href="@Url.Action("SignUp", "Account")">Sign Up</a></li>*@
+            }
+        </div>
+        <div id="sidebar" class="active">
+            <div class="sidebar-wrapper active" style="background-color:azure">
+                <div class="sidebar-header">
+                    <div class="d-flex justify-content-between">
+                        <div class="logo gap-2" style="display:flex">
+                            <a href="@Url.Content("~/Dashboard/Home")">
+                                <img id="siteLogo"
+                                     src="@Url.Content("~/Content/Template/images/logo/logo-light.png")"
+                                     data-light="@Url.Content("~/Content/Template/images/logo/logo-light.png")"
+                                     data-dark="@Url.Content("~/Content/Template/images/logo/logo-dark.png")"
+                                     alt="Logo"
+                                     style="width:100px;height:100px">
+                            </a>
+
+                            <strong style="font-size:15px">Hospital Management System</strong>
+                        </div>
+                        <div class="toggler">
+                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-menu">
+                    <ul class="menu">
+
+                        <li class="sidebar-item active">
+                            <a href="@Url.Content("~/Dashboard/Home")" class='sidebar-link'>
+                                <i class="bi bi-house-fill"></i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="fa fa-calendar-check"></i>
+                                <span>Appointments</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="@Url.Content("~/Appointments/Index")"><i class="fa fa-calendar-check"></i> Appointments</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="fa fa-hospital"></i>
+                                <span>Hospitals</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="@Url.Content("~/Hospitals/Index")"><i class="fa fa-hospital"></i> Hospitals</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="@Url.Content("~/Departments/Index")"><i class="fa fa-building"></i> Department</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="fa fa-users"></i>
+                                <span>People</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="@Url.Content("~/Doctors/Index")"><i class="fa fa-user-md"></i> Doctor</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="@Url.Content("~/Patients/Index")"><i class="fa fa-user"></i> Patient</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="fa fa-file-invoice-dollar"></i>
+                                <span>Billing</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="@Url.Content("~/Invoices/Index")"><i class="fa fa-file-text"></i> Invoice</a>
+                                </li>
+                                @*<li class="submenu-item ">
+                                        <a href="form-element-input-group.html"><i class="fa fa-credit-card"></i> Payment</a>
+                                    </li>*@
+                            </ul>
+                        </li>
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="fa fa-user"></i>
+                                <span>Users</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="@Url.Content("~/User/Index")"><i class="fa fa-user"></i> User</a>
+                                </li>
+                                @*<li class="submenu-item ">
+                                        <a href="form-element-input-group.html"><i class="fa fa-credit-card"></i> Payment</a>
+                                    </li>*@
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+
+            <div class="page-content">
+
+                @RenderBody()
+            </div>
+            <footer class="mt-5">
+                <div class="footer clearfix mb-0 text-muted">
+                    <div class="float-start">
+                        <p>&copy; @DateTime.Now.Year Mazer | Created by: Zeeshan Abbas</p>
+                    </div>
+                    <div class="float-end">
+                        <p>
+                            <a href="#">Home</a> |
+                            <a href="#">Contact</a> |
+                            <a href="#">About</a> |
+                            <a href="#">Terms</a> |
+                            <a href="#">Privacy Policy</a>
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="~/Content/Template/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="~/Content/Template/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/Content/Template/vendors/apexcharts/apexcharts.js"></script>
+    <script src="~/Content/Template/js/pages/dashboard.js"></script>
+
+    <script src="~/Content/Template/js/main.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // ✅ Use consistent IDs from your HTML
+        const profileImageDropdown = document.getElementById("profileImageDropdown"); // image inside dropdown
+        const profileImage = document.querySelector(".user-avatar"); // image in navbar (outside dropdown)
+        const imageUpload = document.getElementById("imageUpload"); // hidden file input
+
+        if (profileImageDropdown && imageUpload) {
+
+            // 👆 When user clicks profile image inside dropdown
+            profileImageDropdown.addEventListener("click", () => {
+                imageUpload.click();
+            });
+
+            // 👇 When user selects a new image
+            imageUpload.addEventListener("change", function () {
+                const file = this.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const imageData = e.target.result;
+
+                    // ✅ Instant preview for both images
+                    if (profileImageDropdown) profileImageDropdown.src = imageData;
+                    if (profileImage) profileImage.src = imageData;
+                };
+                reader.readAsDataURL(file);
+
+                // ✅ Upload to server (optional)
+                const formData = new FormData();
+                formData.append("file", file);
+                formData.append("userId", '@Session["UserID"]');
+
+                fetch('@Url.Action("UploadProfileImage", "Account")', { // 👈 change controller if needed
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Profile image updated successfully");
+                    } else {
+                        alert("Failed to upload image.");
+                    }
+                })
+                .catch(err => console.error("Error uploading image:", err));
+            });
+        }
+    });
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            menu.addEventListener('click', e => e.stopPropagation());
+        });
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.body.setAttribute('data-theme', savedTheme);
+        })();
+
+        function applyTheme(theme) {
+            const body = document.body;
+            const logo = document.getElementById('siteLogo');
+
+            if (theme === 'dark') {
+                body.classList.add('dark-theme');
+                body.classList.remove('light-theme');
+                if (logo) logo.src = logo.getAttribute('data-dark');
+            } else {
+                body.classList.add('light-theme');
+                body.classList.remove('dark-theme');
+                if (logo) logo.src = logo.getAttribute('data-light');
+            }
+
+            localStorage.setItem('theme', theme);
+        }
+
+        // Wait until DOM is ready before touching the logo
+        window.addEventListener('DOMContentLoaded', function () {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            applyTheme(savedTheme); // ensures correct logo after reload / logout
+
+            // Theme dropdown listener
+            document.querySelectorAll('.dropdown-item').forEach(item => {
+                item.addEventListener('click', function () {
+                    const text = this.textContent.trim().toLowerCase();
+                    if (text.includes('dark')) applyTheme('dark');
+                    else if (text.includes('light')) applyTheme('light');
+                });
+            });
+        });
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+﻿@model HospitalManagement.Models.People.Doctor
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h2 class="user-name" style="text-align:center">Doctor</h2>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Department.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Department.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Specialization)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Specialization)
+            </dd>
+
+        </dl>
+    </div>
+    <div class="mt-5 flex">
+        @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-outline-info user-name" })
+    </div>
+</body>
+</html>

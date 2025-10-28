@@ -1,0 +1,68 @@
+﻿@model HospitalManagement.Models.Billing.Invoice
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        
+    <div class="form-horizontal">
+        <h2 class="user-name" style="text-align:center">Invoice</h2>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.InvoiceId)
+
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CreatedAt, htmlAttributes: new { @class = "control-label col-md-2 user-name" })
+                    @Html.EditorFor(model => model.CreatedAt, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CreatedAt, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2 user-name" })
+                    @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PaymentStatus, htmlAttributes: new { @class = "control-label col-md-2 user-name" })
+                    @Html.EnumDropDownListFor(model => model.PaymentStatus, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PaymentStatus, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AppointmentId, "AppointmentId", htmlAttributes: new { @class = "control-label col-md-2 user-name" })
+                    @Html.DropDownList("AppointmentId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.AppointmentId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PatientId, "PatientId", htmlAttributes: new { @class = "control-label col-md-2 user-name" })
+                    @Html.DropDownList("PatientId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PatientId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="mt-5 flex">
+            <input type="submit" value="Save" class="btn btn-outline-primary user-name" style="cursor:pointer" />
+            @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-outline-info user-name" })
+        </div>
+    </div>
+    }
+    
+</body>
+</html>

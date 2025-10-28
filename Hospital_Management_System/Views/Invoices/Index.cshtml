@@ -1,0 +1,62 @@
+﻿@model IEnumerable<HospitalManagement.Models.Billing.Invoice>
+<h2 class="user-name" style="text-align:center">Invoice</h2>
+<hr />
+<p class="mt-5">
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary", style = "color:white;font-weight:600" })
+</p>
+
+<div class="container-fluid" style="overflow:auto;max-height:300px">
+    <table class="table">
+        <tr>
+            <th class="user-name">
+                @Html.DisplayNameFor(model => model.Appointment.Notes)
+            </th>
+            <th class="user-name">
+                @Html.DisplayNameFor(model => model.Patient.FirstName)
+            </th>
+            <th class="user-name">
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th class="user-name">
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th class="user-name">
+                @Html.DisplayNameFor(model => model.PaymentStatus)
+            </th>
+            <th class="user-name">Action</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="user-name">
+                    @Html.DisplayFor(modelItem => item.Appointment.Notes)
+                </td>
+                <td class="user-name">
+                    @Html.DisplayFor(modelItem => item.Patient.FirstName)
+                </td>
+                <td class="user-name">
+                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                </td>
+                <td class="user-name">
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td class="user-name">
+                    @Html.DisplayFor(modelItem => item.PaymentStatus)
+                </td>
+                <td class="text-center gap-2" style="display:flex;">
+                    <a href="@Url.Action("Edit", new { id = item.InvoiceId })" class="btn btn-success" title="Edit">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <a href="@Url.Action("Details", new { id = item.InvoiceId })" class="btn btn-secondary" title="Details">
+                        <i class="fa fa-file-alt"></i>
+                    </a>
+                    <a href="@Url.Action("Delete", new { id = item.InvoiceId })" class="btn btn-danger" title="Delete">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

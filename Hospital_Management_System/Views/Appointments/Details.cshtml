@@ -1,0 +1,70 @@
+﻿@model HospitalManagement.Models.Appointments.Appointment
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h2 class="user-name" style="text-align:center">Appointment</h2>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Doctor.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Doctor.FirstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Patient.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Patient.FirstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.StartTime)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EndTime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EndTime)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Notes)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Notes)
+            </dd>
+
+        </dl>
+    </div>
+    <div class="mt-5 flex">
+        @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-outline-info user-name" })
+    </div>
+
+</body>
+</html>

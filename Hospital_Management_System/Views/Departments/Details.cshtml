@@ -1,0 +1,39 @@
+﻿@model HospitalManagement.Models.Hospital.Department
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+    <h2 class="user-name" style="text-align:center">Department</h2>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Hospital.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hospital.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+    </dl>
+</div>
+<div class="mt-6 flex">
+    @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-outline-info user-name" })
+</div>
